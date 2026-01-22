@@ -1,0 +1,244 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Orbitron', monospace;
+    background: #0a0a0a;
+    color: #00ff88;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+.matrix-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    background: linear-gradient(45deg, 
+        rgba(0, 255, 136, 0.03) 0%,
+        rgba(0, 255, 136, 0.01) 50%,
+        rgba(0, 255, 136, 0.03) 100%);
+    animation: matrixFlow 20s linear infinite;
+}
+
+@keyframes matrixFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 10;
+}
+
+/* 英雄區 */
+.hero {
+    text-align: center;
+    padding: 80px 0;
+    position: relative;
+}
+
+.glitch {
+    font-size: clamp(3rem, 8vw, 8rem);
+    font-weight: 900;
+    color: #00ff88;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.glitch-text {
+    animation: glitch 2s infinite;
+    position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch::before {
+    animation: glitch-top 1s infinite;
+    color: #ff0080;
+    left: 2px;
+}
+
+.glitch::after {
+    animation: glitch-bottom 1.5s infinite;
+    color: #00ffff;
+    left: -2px;
+}
+
+@keyframes glitch {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+}
+
+@keyframes glitch-top {
+    0%, 100% { transform: translate(0); }
+    50% { transform: translate(-2px, 1px); }
+}
+
+@keyframes glitch-bottom {
+    0%, 100% { transform: translate(0); }
+    50% { transform: translate(2px, -1px); }
+}
+
+.typing-animation {
+    font-size: 1.5rem;
+    height: 30px;
+    display: inline-block;
+}
+
+.cursor {
+    animation: blink 1s infinite;
+    color: #00ff88;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* 歡迎區 */
+.welcome-container {
+    text-align: center;
+    padding: 60px 0;
+    position: relative;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.welcome-text {
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 900;
+    background: linear-gradient(45deg, #00ff88, #00ffff, #ff0080);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s ease infinite, welcomeIn 1s 0.5s forwards;
+    margin-bottom: 30px;
+    text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+}
+
+.main-message {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 1s 1s forwards;
+    color: #00ff88;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.scanline {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #00ff88, transparent);
+    animation: scan 3s infinite;
+}
+
+@keyframes scan {
+    0% { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateX(-50%) translateY(20px); opacity: 0; }
+}
+
+/* 科技特色 */
+.tech-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin: 80px 0;
+}
+
+.feature-card {
+    background: rgba(0, 255, 136, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+    transition: left 0.6s;
+}
+
+.feature-card:hover::before {
+    left: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    border-color: #00ff88;
+    box-shadow: 0 20px 40px rgba(0, 255, 136, 0.3);
+}
+
+.icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 20px currentColor);
+}
+
+.feature-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #00ffff;
+}
+
+.feature-card p {
+    color: rgba(0, 255, 136, 0.8);
+    line-height: 1.6;
+}
+
+footer {
+    text-align: center;
+    padding: 40px 0;
+    color: rgba(0, 255, 136, 0.6);
+    font-size: 0.9rem;
+}
+
+/* 響應式 */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .hero {
+        padding: 50px 0;
+    }
+}
